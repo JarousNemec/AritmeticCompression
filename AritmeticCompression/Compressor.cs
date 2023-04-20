@@ -11,7 +11,7 @@ public class Compressor
 
     public double Encode(string input)
     {
-        CalculateRanges(input);
+        CalculateFrequencies(input);
         Symbol last = new()
         {
             Low = 0, High = 1
@@ -36,7 +36,7 @@ public class Compressor
         return last.Low;
     }
 
-    private void CalculateRanges(string input)
+    private void CalculateFrequencies(string input)
     {
         int[] chars = new int[26];
         foreach (var charr in input.ToLower())
