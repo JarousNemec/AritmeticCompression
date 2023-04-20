@@ -2,15 +2,12 @@
 
 public class Symbol
 {
-    public char Name { get; set; }
+    public char Name { get; init; }
 
-    public double Range
-    {
-        get { return High - Low; }
-    }
+    public double Range => High - Low;
 
     public double Frequency { get; set; }
 
-    public double Low { get; set; }
-    public double High { get; set; }
+    public double Low { get; init; }
+    public double High { get; init; }
 }

@@ -23,7 +23,7 @@ public class Compressor
             {
                 var low = last.Low + last.Range * s.Low;
                 var high = last.Low + last.Range * s.High;
-                Symbol actual = new Symbol()
+                var actual = new Symbol()
                 {
                     Name = symbol,
                     Low = low,
@@ -38,7 +38,7 @@ public class Compressor
 
     private void CalculateFrequencies(string input)
     {
-        int[] chars = new int[26];
+        var chars = new float[26];
         foreach (var charr in input.ToLower())
         {
             if (char.IsLetter(charr))
@@ -47,22 +47,41 @@ public class Compressor
             }
         }
 
-        int count = 0;
-        for (int i = 0; i < chars.Length; i++)
+        var count = 0;
+        for (var i = 0; i < chars.Length; i++)
         {
             if (chars[i] > 0)
             {
                 var low = count == 0 ? 0 : _symbols[count - 1].High;
                 count++;
-                var frequency = (double)chars[i] / input.Length;
+                var frequency = chars[i] / input.Length;
                 _symbols.Add(new Symbol()
                 {
-                    Name = (char)(i+'a'),
+                    Name = (char)(i + 'a'),
                     Frequency = frequency,
                     Low = low,
                     High = low + frequency
                 });
             }
         }
+    }
+
+    public string Decode(double input)
+    {
+        string output = string.Empty;
+        while (true)
+        {
+            var last = _symbols.FirstOrDefault(x => x.Low <= input && x.High > input);
+            if (last != null)
+            {
+                output += last.Name;
+                if (input == 0) break;
+                input = (input - last.Low) / last.Range;
+            }
+
+            Console.WriteLine(input);
+        }
+
+        return output;
     }
 }

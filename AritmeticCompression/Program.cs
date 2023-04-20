@@ -5,5 +5,7 @@ using AritmeticCompression;
 
 Console.WriteLine("Hello, World!");
 Compressor compressor = new Compressor();
-var r = compressor.Encode("kava");
+var r = compressor.Encode("kafe");
 Console.WriteLine(r);
+var d = compressor.Decode(r);
+Console.WriteLine(d);
